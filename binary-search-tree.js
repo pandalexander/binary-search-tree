@@ -9,29 +9,30 @@ class Node {
 }
 
 class Tree {
-  constructor(array) {
+  constructor(arr) {
+    this.arr = arr;
     this.root = null;
   }
 
   sortAndSimplify(array) {
-    array.sort(function (x, y) {
-      return x - y;
-    });
-
-    let sortedAndRemovedArray = [];
-
-    array.forEach((element) => {
-      if (!sortedAndRemovedArray.includes(element)) {
-        sortedAndRemovedArray.push(element);
-      }
-    });
+    let sortedAndRemovedArray = array
+      .filter((value, index) => array.indexOf(value) === index)
+      .sort(function (x, y) {
+        return x - y;
+      });
 
     return sortedAndRemovedArray;
   }
 
-  buildTree() {}
+  buildTree(array) {
+    let fixedArray = this.sortAndSimplify(array);
+
+    return fixedArray;
+  }
 }
 
-const tree = new Tree();
+const testTree = new Tree();
 
-console.log(tree.sortAndSimplify(arrayToTree));
+console.log(arrayToTree);
+
+console.log(testTree.buildTree(arrayToTree));
