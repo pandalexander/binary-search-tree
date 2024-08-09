@@ -9,9 +9,10 @@ class Node {
 }
 
 class Tree {
-  constructor(arr) {
-    this.arr = arr;
-    this.root = null;
+  constructor(rawArray) {
+    this.rawArray = rawArray;
+    this.arr = this.sortAndSimplify(rawArray);
+    this.root = this.buildTree(this.arr);
   }
 
   sortAndSimplify(array) {
@@ -25,14 +26,39 @@ class Tree {
   }
 
   buildTree(array) {
-    let fixedArray = this.sortAndSimplify(array);
+    let start = 0;
+    let end = array.length - 1;
+    let mid = Math.floor((start + end) / 2);
 
-    return fixedArray;
+    if (start > end) {
+      return null;
+    }
+
+    let newNode = new Node(
+      array[mid],
+      this.buildTree(array.slice(start, mid)),
+      this.buildTree(array.slice(mid + 1, end + 1))
+    );
+
+    return newNode;
   }
 }
 
-const testTree = new Tree();
+let easyArray = [1, 2, 3, 4, 5, 6, 7];
 
-console.log(arrayToTree);
+const testTree = new Tree(arrayToTree);
 
-console.log(testTree.buildTree(arrayToTree));
+const prettyPrint = (node, prefix = "", isLeft = true) => {
+  if (node === null) {
+    return;
+  }
+  if (node.right !== null) {
+    prettyPrint(node.right, `${prefix}${isLeft ? "│   " : "    "}`, false);
+  }
+  console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.data}`);
+  if (node.left !== null) {
+    prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
+  }
+};
+
+prettyPrint(testTree.root);
