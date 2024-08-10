@@ -1,7 +1,7 @@
 const arrayToTree = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 
 class Node {
-  constructor(data, left, right) {
+  constructor(data, left = null, right = null) {
     this.data = data;
     this.left = left;
     this.right = right;
@@ -42,9 +42,36 @@ class Tree {
 
     return newNode;
   }
-}
 
-let easyArray = [1, 2, 3, 4, 5, 6, 7];
+  insert(data) {
+    let newNode = new Node(data);
+    let currentNode = this.root;
+    let lookingForLeaf = true;
+
+    do {
+      if (newNode.data === currentNode.data) {
+        lookingForLeaf = false;
+        return;
+      } else if (newNode.data < currentNode.data) {
+        if (currentNode.left === null) {
+          currentNode.left = newNode;
+          lookingForLeaf = false;
+          return;
+        } else {
+          currentNode = currentNode.left;
+        }
+      } else if (newNode.data > currentNode.data) {
+        if (currentNode.right === null) {
+          currentNode.right = newNode;
+          lookingForLeaf = false;
+          return;
+        } else {
+          currentNode = currentNode.right;
+        }
+      }
+    } while (lookingForLeaf);
+  }
+}
 
 const testTree = new Tree(arrayToTree);
 
@@ -61,4 +88,12 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
+prettyPrint(testTree.root);
+console.log(testTree.insert(70));
+prettyPrint(testTree.root);
+
+console.log(testTree.insert(2));
+prettyPrint(testTree.root);
+
+console.log(testTree.insert(10000));
 prettyPrint(testTree.root);
