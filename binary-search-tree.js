@@ -71,6 +71,27 @@ class Tree {
       }
     } while (lookingForLeaf);
   }
+
+  find(data) {
+    let current = this.root;
+    let lookingForValue = true;
+
+    do {
+      if (current.data === data) {
+        lookingForValue = false;
+        return current;
+      } else {
+        if (data < current.data && current.left !== null) {
+          current = current.left;
+        } else if (data > current.data && current.right !== null) {
+          current = current.right;
+        } else {
+          lookingForValue = false;
+          return null;
+        }
+      }
+    } while (lookingForValue);
+  }
 }
 
 const testTree = new Tree(arrayToTree);
@@ -89,11 +110,5 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 };
 
 prettyPrint(testTree.root);
-console.log(testTree.insert(70));
-prettyPrint(testTree.root);
-
-console.log(testTree.insert(2));
-prettyPrint(testTree.root);
-
-console.log(testTree.insert(10000));
+console.log(testTree.find(23));
 prettyPrint(testTree.root);
