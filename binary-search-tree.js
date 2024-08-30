@@ -88,6 +88,14 @@ class Tree {
 
     return null;
   }
+
+  levelOrder(callback) {
+    if (typeof callback !== "function") {
+      throw new TypeError("The parameter must be a function");
+    }
+
+    return;
+  }
 }
 
 const testTree = new Tree(arrayToTree);
@@ -105,6 +113,7 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
-prettyPrint(testTree.root);
-console.log(testTree.find(1000));
-prettyPrint(testTree.root);
+// prettyPrint(testTree.root);
+// console.log(testTree.find(1000));
+// prettyPrint(testTree.root);
+console.log(testTree.levelOrder(console.log));
