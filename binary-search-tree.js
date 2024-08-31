@@ -106,6 +106,25 @@ class Tree {
       }
     }
   }
+
+  inOrder(callback) {
+    if (typeof callback !== "function") {
+      throw new TypeError("The parameter must be a function");
+    }
+    // visit left subtree, visit root, visit right tree
+
+    function recursionInOrder(node) {
+      if (node === null) {
+        return;
+      } else {
+        recursionInOrder(node.left);
+        callback(node);
+        recursionInOrder(node.right);
+      }
+    }
+
+    recursionInOrder(this.root);
+  }
 }
 
 const testTree = new Tree(arrayToTree);
@@ -124,4 +143,4 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 };
 
 prettyPrint(testTree.root);
-console.log(testTree.levelOrder(console.log));
+console.log(testTree.inOrder(console.log));
