@@ -94,7 +94,17 @@ class Tree {
       throw new TypeError("The parameter must be a function");
     }
 
-    return;
+    let queue = [];
+    queue.push(this.root);
+
+    while (queue.length > 0) {
+      let current = queue.shift();
+      if (current !== null) {
+        callback(current);
+        queue.push(current.left);
+        queue.push(current.right);
+      }
+    }
   }
 }
 
@@ -113,7 +123,5 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
-// prettyPrint(testTree.root);
-// console.log(testTree.find(1000));
-// prettyPrint(testTree.root);
+prettyPrint(testTree.root);
 console.log(testTree.levelOrder(console.log));
