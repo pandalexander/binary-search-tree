@@ -169,6 +169,25 @@ class Tree {
     }
     return Math.max(this.height(node.left) + 1, this.height(node.right) + 1);
   }
+
+  depth(node) {
+    let current = this.root;
+    let count = 0;
+
+    while (current !== null) {
+      if (current === node) {
+        return count;
+      } else if (node.data < current.data) {
+        current = current.left;
+        count++;
+      } else if (node.data > current.data) {
+        current = current.right;
+        count++;
+      }
+    }
+
+    return null;
+  }
 }
 
 const testTree = new Tree(arrayToTree);
@@ -187,4 +206,4 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 };
 
 prettyPrint(testTree.root);
-console.log(testTree.height(testTree.root));
+console.log(testTree.depth(testTree.root.right.left.right));
