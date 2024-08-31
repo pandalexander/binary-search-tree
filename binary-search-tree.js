@@ -162,6 +162,13 @@ class Tree {
 
     recursionPostOrder(this.root);
   }
+
+  height(node) {
+    if (node === null) {
+      return 0;
+    }
+    return Math.max(this.height(node.left) + 1, this.height(node.right) + 1);
+  }
 }
 
 const testTree = new Tree(arrayToTree);
@@ -180,4 +187,4 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 };
 
 prettyPrint(testTree.root);
-console.log(testTree.postOrder(console.log));
+console.log(testTree.height(testTree.root));
