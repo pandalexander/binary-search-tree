@@ -188,6 +188,13 @@ class Tree {
 
     return null;
   }
+
+  isBalanced() {
+    let leftNode = this.root.left;
+    let rightNode = this.root.right;
+
+    return Math.abs(this.height(leftNode) - this.height(rightNode)) <= 1;
+  }
 }
 
 const testTree = new Tree(arrayToTree);
@@ -206,4 +213,4 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 };
 
 prettyPrint(testTree.root);
-console.log(testTree.depth(testTree.root.right.left.right));
+console.log(testTree.isBalanced());
