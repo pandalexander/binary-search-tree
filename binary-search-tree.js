@@ -229,10 +229,4 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
-testTree.insert(7000);
-testTree.insert(7010);
-testTree.insert(7050);
-
-prettyPrint(testTree.root);
-testTree.rebalance();
 prettyPrint(testTree.root);
