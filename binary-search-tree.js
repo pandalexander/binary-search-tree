@@ -195,6 +195,23 @@ class Tree {
 
     return Math.abs(this.height(leftNode) - this.height(rightNode)) <= 1;
   }
+
+  rebalance() {
+    if (!this.isBalanced()) {
+      let newArray = [];
+
+      function pushItems(node) {
+        newArray.push(node.data);
+      }
+
+      this.inOrder(pushItems);
+      this.root = null;
+      this.root = this.buildTree(newArray);
+      console.log("Array is rebalanced");
+    } else {
+      console.log("The tree is balanced");
+    }
+  }
 }
 
 const testTree = new Tree(arrayToTree);
@@ -212,5 +229,10 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
+testTree.insert(7000);
+testTree.insert(7010);
+testTree.insert(7050);
+
 prettyPrint(testTree.root);
-console.log(testTree.isBalanced());
+testTree.rebalance();
+prettyPrint(testTree.root);
