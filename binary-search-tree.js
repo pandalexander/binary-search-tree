@@ -144,6 +144,24 @@ class Tree {
 
     recursionPreOrder(this.root);
   }
+
+  postOrder(callback) {
+    if (typeof callback !== "function") {
+      throw new TypeError("The parameter must be a function");
+    }
+
+    // visit the left, then the right, then the root
+
+    function recursionPostOrder(node) {
+      if (node) {
+        recursionPostOrder(node.left);
+        recursionPostOrder(node.right);
+        callback(node.data);
+      }
+    }
+
+    recursionPostOrder(this.root);
+  }
 }
 
 const testTree = new Tree(arrayToTree);
@@ -162,4 +180,4 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 };
 
 prettyPrint(testTree.root);
-console.log(testTree.preOrder(console.log));
+console.log(testTree.postOrder(console.log));
